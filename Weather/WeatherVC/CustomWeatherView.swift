@@ -5,7 +5,6 @@
 //  Created by Байсангур on 05.04.2023.
 //
 
-import Foundation
 import UIKit
 
 class CustomWeatherView: UIView {
@@ -47,7 +46,6 @@ class CustomWeatherView: UIView {
         textField.rightViewMode = .always
         textField.leftView = emptyView
         textField.rightView = emptyView
-//        textField.delegate = self
         return textField
     }()
     
@@ -63,6 +61,11 @@ class CustomWeatherView: UIView {
     
     var actionHandler: (() -> ())?
     
+    func setupWeatherData(_ vm: WeatherViewModel) {
+        self.weatherIconImageView.image = vm.weatherType.image
+        self.widgetView.setupWeatherData(vm)
+    }
+    
     init() {
         super.init(frame: .zero)
         self.setupLayout()
@@ -72,17 +75,11 @@ class CustomWeatherView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func setupWeatherData(_ vm: WeatherViewModel) {
-        self.weatherIconImageView.image = vm.weatherType.image
-        self.widgetView.setupWeatherData(vm)
-    }
-    
 }
 
 private extension CustomWeatherView {
     
-    private func setupLayout() {
+    func setupLayout() {
         
         let backgroundImageView = UIImageView(image: UIImage(named: "background"))
         self.addSubview(backgroundImageView)
@@ -114,8 +111,7 @@ private extension CustomWeatherView {
         NSLayoutConstraint.activate([
             self.widgetView.topAnchor.constraint(equalTo: self.weatherIconImageView.bottomAnchor, constant: Constants.widgetViewTopInset),
             self.widgetView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: Constants.widgetViewHorizontalInset),
-            self.widgetView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.widgetViewHorizontalInset)//,
-            //self.vidgetView.heightAnchor.constraint(equalToConstant: 300)
+            self.widgetView.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -Constants.widgetViewHorizontalInset)
         ])
         
         self.addSubview(self.newNoteButton)
@@ -128,7 +124,3 @@ private extension CustomWeatherView {
     }
 
 }
-
-//extension CustomWeatherView: UITextFieldDelegate {
-//
-//}

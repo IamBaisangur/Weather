@@ -12,4 +12,4 @@ enum WeatherAssembly {
         let vc = WeatherViewController()
         return vc
     }
-}   Projekts Tests and Learn
+}
