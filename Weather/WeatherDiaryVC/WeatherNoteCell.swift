@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WeatherNoteCell: UITableViewCell {
+final class WeatherNoteCell: UITableViewCell {
     
     private enum Constraint {
         static let topBottomInset: CGFloat = 18

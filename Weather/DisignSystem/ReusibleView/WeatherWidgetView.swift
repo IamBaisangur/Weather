@@ -66,13 +66,13 @@ final class WeatherWidgetView: UIView {
     }
     
     // Данные с сервера
-    func setupWeatherData(_ vm: WeatherViewModel) {
-        self.dateLabel.text = vm.date
-        self.temperatureLabel.text = vm.temp + "°"
-        self.weatherDestribeLabel.text = vm.weatherType.description
+    func setupWeatherData(_ modelData: CurrentWeatherModel) {
+        self.dateLabel.text = modelData.date
+        self.temperatureLabel.text = modelData.temp + "°"
+        self.weatherDestribeLabel.text = modelData.weatherType.description
         
-        self.windView.setupData(vm.wind)
-        self.humView.setupData(vm.humidity)
+        self.windView.setupData(modelData.wind)
+        self.humView.setupData(modelData.humidity)
         
 //        self.windView.imageView.image = UIImage(named: "windy")
 //        self.windView.nameLabel.text = "wind"

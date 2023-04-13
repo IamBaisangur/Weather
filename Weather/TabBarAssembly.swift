@@ -13,7 +13,7 @@ enum TabBarAssembly {
     static func build() -> UITabBarController {
         let tabBar = UITabBarController()
         
-        let weatherViewController = WeatherAssembly.build()
+        let weatherViewController = CurrentWeatherAssembly.build()
         let weatherNavigationController = UINavigationController(rootViewController: weatherViewController)
         
         let weatherDiaryViewController = WeatherDiaryAssembly.build()

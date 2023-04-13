@@ -7,7 +7,12 @@
 
 import UIKit
 
-class CustomWeatherView: UIView {
+protocol ICustomWeatherView: AnyObject {
+    var tapButtonHandler: (() -> ())? { get set }
+    func setupWeatherData(_ modelData: CurrentWeatherModel)
+}
+
+final class CustomWeatherView: UIView, ICustomWeatherView {
     
     private enum Constants {
         static let horisontalSearch = CGFloat(30)
@@ -56,14 +61,14 @@ class CustomWeatherView: UIView {
                                                               labelText: Texts.weatherButtonText,
                                                               font: .regular16,
                                                               tapHandler: {
-        self.actionHandler?()
+        self.tapButtonHandler?()
     }))
     
-    var actionHandler: (() -> ())?
+    var tapButtonHandler: (() -> ())?
     
-    func setupWeatherData(_ vm: WeatherViewModel) {
-        self.weatherIconImageView.image = vm.weatherType.image
-        self.widgetView.setupWeatherData(vm)
+    func setupWeatherData(_ modelData: CurrentWeatherModel) {
+        self.weatherIconImageView.image = modelData.weatherType.image
+        self.widgetView.setupWeatherData(modelData)
     }
     
     init() {

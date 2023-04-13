@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WeatherDiaryViewController: UIViewController {
+final class WeatherDiaryViewController: UIViewController {
     
     private let tableView = UITableView()
     

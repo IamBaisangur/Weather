@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class NoteTextFieldView: UIView {
+final class NoteTextFieldView: UIView {
     
     struct Settings {
         let header: String

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class WeatherNoteViewController: UIViewController {
+final class WeatherNoteViewController: UIViewController {
     
     private enum Constraints {
         static let noteTextFieldHorizontalInset: CGFloat = 30

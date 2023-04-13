@@ -6,10 +6,8 @@
 //
 
 import class UIKit.UIImage
-import Foundation
-import UIKit
 
-struct WeatherViewModel {
+struct CurrentWeatherModel {
     let date: String
     let temp: String
     let weatherType: WeatherType
@@ -17,7 +15,7 @@ struct WeatherViewModel {
     let humidity: String
 }
 
-extension WeatherViewModel {
+extension CurrentWeatherModel {
     init() {
         self.date = "16 March" //Date.now.description
         self.temp = "3"
