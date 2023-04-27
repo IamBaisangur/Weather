@@ -25,7 +25,7 @@ final class CurrentWeatherPresenter: ICurrentWeatherPresenter {
         self.gui = gui
         self.gui?.setupWeatherData(self.model)
 //        self.gui?.tapButtonHandler = {
-//            print("Open WeatherNoteViewController")
+//            print("Open WeatherDiaryViewController")
 //        }
     }
     

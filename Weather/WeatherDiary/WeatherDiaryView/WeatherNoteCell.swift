@@ -69,9 +69,17 @@ final class WeatherNoteCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func displayData(entity: WeatherDiaryEntity) {
+        self.degreeLabel.text = entity.temperature
+        self.weatherImageView.image = UIImage(named: "sunny")
+        self.dateLabel.text = entity.date
+        self.townLabel.text = entity.town
+    }
 }
 
 private extension WeatherNoteCell {
+    
     func setupLayout() {
         self.backgroundColor = .clear
         self.safeArea = layoutMarginsGuide
@@ -85,7 +93,6 @@ private extension WeatherNoteCell {
         
         self.containerView.addSubview(self.degreeLabel)
         self.degreeLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.degreeLabel.text = "27°"
         NSLayoutConstraint.activate([
             self.degreeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constraint.leadingTrailingInset),
             self.degreeLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
@@ -93,7 +100,6 @@ private extension WeatherNoteCell {
         
         self.containerView.addSubview(self.weatherImageView)
         self.weatherImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.weatherImageView.image = UIImage(named: "sunny")
         NSLayoutConstraint.activate([
             self.weatherImageView.heightAnchor.constraint(equalToConstant: Constraint.sizeImage),
             self.weatherImageView.widthAnchor.constraint(equalToConstant: Constraint.sizeImage),
@@ -103,7 +109,6 @@ private extension WeatherNoteCell {
         
         self.containerView.addSubview(self.dateLabel)
         self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.dateLabel.text = "23.03"
         NSLayoutConstraint.activate([
             self.dateLabel.trailingAnchor.constraint(equalTo: self.weatherImageView.leadingAnchor, constant: -Constraint.horisontalInset),
             self.dateLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
@@ -111,7 +116,6 @@ private extension WeatherNoteCell {
         
         self.addSubview(self.townLabel)
         self.townLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.townLabel.text = "SPb"
         NSLayoutConstraint.activate([
             self.townLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constraint.leadingTrailingInset),
             self.townLabel.trailingAnchor.constraint(equalTo: self.containerView.leadingAnchor, constant: Constraint.horisontalInset),
