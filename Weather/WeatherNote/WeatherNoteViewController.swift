@@ -121,14 +121,12 @@ final class WeatherNoteViewController: UIViewController {
         
         self.scrollView.addSubview(self.dateLabel)
         self.dateLabel.translatesAutoresizingMaskIntoConstraints = false
-        //self.dateLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
         NSLayoutConstraint.activate([
             self.dateLabel.topAnchor.constraint(equalTo: self.cityNoteTextField.bottomAnchor, constant: Constraints.verticalInset),
             self.dateLabel.leadingAnchor.constraint(equalTo: self.scrollView.leadingAnchor, constant: Constraints.dateLabelLeadingInset)])
         
         self.scrollView.addSubview(self.datePicker)
         self.datePicker.translatesAutoresizingMaskIntoConstraints = false
-        //self.datePicker.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         NSLayoutConstraint.activate([
             self.datePicker.centerYAnchor.constraint(equalTo: self.dateLabel.centerYAnchor),
             self.datePicker.trailingAnchor.constraint(equalTo: self.scrollView.trailingAnchor, constant: -Constraints.standartHorizontalInset),

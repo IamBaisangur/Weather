@@ -9,6 +9,7 @@ import UIKit
 
 protocol ICustomWeatherView: AnyObject {
     var tapButtonHandler: (() -> ())? { get set }
+    func setImage(imageData: Data)
     func setupWeatherData(_ modelData: CurrentWeatherModel)
 }
 
@@ -67,8 +68,12 @@ final class CustomWeatherView: UIView, ICustomWeatherView {
     var tapButtonHandler: (() -> ())?
     
     func setupWeatherData(_ modelData: CurrentWeatherModel) {
-        self.weatherIconImageView.image = modelData.weatherType.image
+        //self.weatherIconImageView.image = modelData.weatherType.image
         self.widgetView.setupWeatherData(modelData)
+    }
+    
+    func setImage(imageData: Data) {
+        self.weatherIconImageView.image = UIImage(data: imageData)
     }
     
     init() {

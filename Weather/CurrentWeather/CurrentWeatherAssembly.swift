@@ -9,7 +9,7 @@ import Foundation
 
 enum CurrentWeatherAssembly {
     static func build() -> CurrentWeatherViewController {
-        let presenter = CurrentWeatherPresenter(model: CurrentWeatherModel())
+        let presenter = CurrentWeatherPresenter()
         let vc = CurrentWeatherViewController(presenter: presenter)
         return vc
     }

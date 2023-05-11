@@ -69,18 +69,9 @@ final class WeatherWidgetView: UIView {
     func setupWeatherData(_ modelData: CurrentWeatherModel) {
         self.dateLabel.text = modelData.date
         self.temperatureLabel.text = modelData.temp + "°"
-        self.weatherDestribeLabel.text = modelData.weatherType.description
         
         self.windView.setupData(modelData.wind)
         self.humView.setupData(modelData.humidity)
-        
-//        self.windView.imageView.image = UIImage(named: "windy")
-//        self.windView.nameLabel.text = "wind"
-//        self.windView.dataLabel.text = vm.wind + " km/h"
-//
-//        self.humView.imageView.image = UIImage(named: "hum")
-//        self.humView.nameLabel.text = "hum"
-//        self.humView.dataLabel.text = vm.humidity + " %"
         
     }
 }
@@ -114,7 +105,6 @@ private extension WeatherWidgetView {
         self.weatherDestribeLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             self.weatherDestribeLabel.topAnchor.constraint(equalTo: self.temperatureLabel.bottomAnchor),
-            //self.weatherDestribeLabel.heightAnchor.constraint(equalToConstant: Constraints.heightDestribeLabel),
             self.weatherDestribeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.weatherDestribeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)])
         
@@ -123,8 +113,6 @@ private extension WeatherWidgetView {
         NSLayoutConstraint.activate([
             self.windView.topAnchor.constraint(equalTo: self.weatherDestribeLabel.bottomAnchor),
             self.windView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-            //self.windView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constraints.sepHorizontalInset),
-            //self.windView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constraints.sepHorizontalInset)
         ])
         
         self.addSubview(self.humView)
@@ -133,8 +121,6 @@ private extension WeatherWidgetView {
             self.humView.topAnchor.constraint(equalTo: self.windView.bottomAnchor, constant: Constraints.humViewTopInset),
             self.humView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -Constraints.humViewBottomInset),
             self.humView.centerXAnchor.constraint(equalTo: self.centerXAnchor)
-//            self.humView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Constraints.sepHorizontalInset),
-//            self.humView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -Constraints.sepHorizontalInset)
         ])
     }
     
