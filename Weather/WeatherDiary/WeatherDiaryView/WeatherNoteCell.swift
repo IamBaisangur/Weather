@@ -56,7 +56,7 @@ final class WeatherNoteCell: UITableViewCell {
     
     private var weatherImageView: UIImageView = {
         let view = UIImageView()
-        view.image = UIImage(named: "sunny")
+        //view.image = UIImage(named: "sunny")
         return view
     }()
     
@@ -72,7 +72,7 @@ final class WeatherNoteCell: UITableViewCell {
     
     func displayData(entity: WeatherDiaryEntity) {
         self.degreeLabel.text = entity.temperature
-        self.weatherImageView.image = UIImage(named: "sunny")
+        self.weatherImageView.image = UIImage(systemName: "questionmark.app")
         self.dateLabel.text = entity.date
         self.townLabel.text = entity.town
     }

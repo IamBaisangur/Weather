@@ -8,6 +8,14 @@
 import Foundation
 import UIKit
 
+//protocol WeatherDiaryViewInput: AnyObject {
+//    func display(weatherViewModel: CurrentWeatherModel)
+//}
+//
+//protocol WeatherDiaryViewOutput {
+//    
+//}
+
 final class WeatherDiaryViewController: UIViewController {
     
     private var presenter: IWeatherDiaryPresenter?
@@ -32,6 +40,10 @@ final class WeatherDiaryViewController: UIViewController {
         self.setupNavBar()
         presenter?.viewDidload(gui: self.gui)
     }
+
+//    func display(weatherViewModel: CurrentWeatherModel) {
+//        gui.getData(data: <#T##[WeatherDiaryEntity]#>)
+//    }
 }
 
 private extension WeatherDiaryViewController {

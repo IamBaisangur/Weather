@@ -16,7 +16,7 @@ protocol ICustomWeatherView: AnyObject {
 final class CustomWeatherView: UIView, ICustomWeatherView {
     
     private enum Constants {
-        static let horisontalSearch = CGFloat(30)
+        static let horisontalSearch: CGFloat = 30
         static let cornerRadius = CGFloat(16)
         static let searchHeight = CGFloat(58)
         
@@ -61,8 +61,8 @@ final class CustomWeatherView: UIView, ICustomWeatherView {
     private lazy var newNoteButton = WeatherButton(settings: .init(imageName: Constants.weatherButtonImage,
                                                               labelText: Texts.weatherButtonText,
                                                               font: .regular16,
-                                                              tapHandler: {
-        self.tapButtonHandler?()
+                                                              tapHandler: { [weak self] in
+        self?.tapButtonHandler?()
     }))
     
     var tapButtonHandler: (() -> ())?

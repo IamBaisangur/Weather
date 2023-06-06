@@ -57,8 +57,6 @@ final class WeatherDiaryView: UIView {
         self.tableView.backgroundColor = .clear //UIColor(red: 1, green: 1, blue: 1, alpha: 0)
         self.tableView.register(WeatherNoteCell.self, forCellReuseIdentifier: WeatherNoteCell.identifier )
     }
-    
-
 }
 
 extension WeatherDiaryView: IWeatherDiaryView {

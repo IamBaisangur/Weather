@@ -6,36 +6,73 @@
 //
 
 import Foundation
+import UIKit
 
 protocol IWeatherDiaryInteractor {
-    func generateData() -> [WeatherDiaryEntity]
+    func fetchForecastData(_ completion: @escaping ([WeatherDiaryEntity]) -> ())
+    func fetchForecastInageData(url: String?,_ completion: @escaping (Data) -> ())
 }
 
 final class WeatherDiaryInteractor {
+    private var weatherNetworkService: INetworkService
     
+    init(weatherNetworkService: INetworkService) {
+        self.weatherNetworkService = weatherNetworkService
+    }
 }
 
+
 extension WeatherDiaryInteractor: IWeatherDiaryInteractor {
-    
-    func generateData() -> [WeatherDiaryEntity] {
-        var entity = [WeatherDiaryEntity]()
-        for _ in 0...10 {
-            entity.append(WeatherDiaryEntity(town: self.randomCity(),
-                                             date: "20 april",
-                                             weatherImage: WeatherType.sunny,
-                                             temperature: self.randomTemperature()))
+    func fetchForecastInageData(url: String?,_ completion: @escaping (Data) -> ()) {
+        guard let url = url else { return }
+        self.weatherNetworkService.loadCurrentWeatherImage(urlString: url) { (result: Result<Data, Error> ) in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    completion(data)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error)
+                }
+            }
         }
-        return entity
     }
+    
+    func fetchForecastData(_ completion: @escaping ([WeatherDiaryEntity]) -> ()) {
+        var entity = [WeatherDiaryEntity]()
+        self.weatherNetworkService.loadForecastWeatherData{ (result: Result<ForecastWeatherDTO, Error>) in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    data.forecast.forecastday.forEach { separateDay in
+                        entity.append(WeatherDiaryEntity(town: data.location.name,
+                                                         date: self.remuveDate(initialDate: separateDay.date),
+                                                         weatherImage: separateDay.day.condition.icon.rawValue,
+                                                         temperature: self.convertTemperature(temperature:              separateDay.day.avgtempC)))
+                    }
+                    completion(entity)
+                }
+
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    print(error)
+                }
+            }
+        }
+    }
+    
 }
 
 private extension WeatherDiaryInteractor {
-    func randomCity() -> String {
-        return ["Novosibirsk", "Tomsk", "St.Petersburg"].randomElement() ?? "Moscow"
+    
+    func convertTemperature(temperature: Double) -> String {
+        return String(Int(temperature)) + "°"
     }
     
-    func randomTemperature() -> String {
-        let randomInt = Int.random(in: 0...30)
-        return String(randomInt) + "°"
+    func remuveDate(initialDate: String) -> String {
+        let characters = Array(initialDate)
+        return String(characters[5...characters.count - 1])
     }
+    
 }
