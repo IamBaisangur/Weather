@@ -18,6 +18,7 @@ final class WeatherDiaryPresenter {
     private var interactor: IWeatherDiaryInteractor?
     private var router: IWeatherDiaryRouter?
     private var delegate = WeatherDiaryDelegate()
+    private var imagesData = [Data]()
  
     init(interactor: IWeatherDiaryInteractor, router: IWeatherDiaryRouter) {
         self.interactor = interactor
@@ -52,18 +53,32 @@ private extension WeatherDiaryPresenter {
     
     func loadForecastData() {
         self.interactor?.fetchForecastData { [weak self] result in
-            self?.gui?.getData(data: result)
-            
-            result.forEach { day in
-                self?.loadForecastImageData(url: day.weatherImage)
-            }
+            self?.loadForecastImage(forecastData: result)
+            //print(result)
         }
     }
     
-    func loadForecastImageData(url: String?) {
-        self.interactor?.fetchForecastInageData(url: url) { [weak self] result in
-            print(result)
-            //self?.gui?.getData(data: result)
+    func loadForecastImage(forecastData: [WeatherDiaryEntity]) {
+        var arrURL = [String]()
+        forecastData.forEach { day in
+            arrURL.append(day.weatherImage)
         }
+        
+        self.loadForecastImageData(forecastData: forecastData, imagesURL: arrURL)
+    }
+    
+    func loadForecastImageData(forecastData: [WeatherDiaryEntity], imagesURL: [String]) {
+        imagesURL.forEach { url in
+            self.imagesData.append(Data())
+        }
+        
+        for urlIndex in 0 ..< imagesURL.count {
+            let url = imagesURL[urlIndex]
+            self.interactor?.fetchForecastImageData(urlImage: url) { [weak self] result in
+                self?.imagesData[urlIndex] = result
+                self?.gui?.getData(data: forecastData, imageData: self?.imagesData)
+            }
+        }
+        
     }
 }

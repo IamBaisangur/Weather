@@ -10,7 +10,7 @@ import UIKit
 
 protocol IWeatherDiaryInteractor {
     func fetchForecastData(_ completion: @escaping ([WeatherDiaryEntity]) -> ())
-    func fetchForecastInageData(url: String?,_ completion: @escaping (Data) -> ())
+    func fetchForecastImageData(urlImage: String,_ completion: @escaping (Data) -> ())
 }
 
 final class WeatherDiaryInteractor {
@@ -23,25 +23,26 @@ final class WeatherDiaryInteractor {
 
 
 extension WeatherDiaryInteractor: IWeatherDiaryInteractor {
-    func fetchForecastInageData(url: String?,_ completion: @escaping (Data) -> ()) {
-        guard let url = url else { return }
-        self.weatherNetworkService.loadCurrentWeatherImage(urlString: url) { (result: Result<Data, Error> ) in
-            switch result {
-            case .success(let data):
-                DispatchQueue.main.async {
-                    completion(data)
-                }
-            case .failure(let error):
-                DispatchQueue.main.async {
-                    print(error)
+    
+    func fetchForecastImageData(urlImage: String,_ completion: @escaping (Data) -> ()) {
+
+        self.weatherNetworkService.loadCurrentWeatherImage(urlString: urlImage) { (result: Result<Data, Error> ) in
+                switch result {
+                case .success(let data):
+                    DispatchQueue.main.async {
+                        completion(data)
+                    }
+                case .failure(let error):
+                    DispatchQueue.main.async {
+                        print(error)
+                    }
                 }
             }
         }
-    }
     
     func fetchForecastData(_ completion: @escaping ([WeatherDiaryEntity]) -> ()) {
         var entity = [WeatherDiaryEntity]()
-        self.weatherNetworkService.loadForecastWeatherData{ (result: Result<ForecastWeatherDTO, Error>) in
+        self.weatherNetworkService.loadForecastWeatherData(city: "Moscow"){ (result: Result<ForecastWeatherDTO, Error>) in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {

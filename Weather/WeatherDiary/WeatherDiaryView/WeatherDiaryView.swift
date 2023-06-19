@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol IWeatherDiaryView: AnyObject {
-    func getData(data: [WeatherDiaryEntity])
+    func getData(data: [WeatherDiaryEntity], imageData: [Data]?)
 }
 
 final class WeatherDiaryView: UIView {
@@ -61,8 +61,9 @@ final class WeatherDiaryView: UIView {
 
 extension WeatherDiaryView: IWeatherDiaryView {
     
-    func getData(data: [WeatherDiaryEntity]) {
+    func getData(data: [WeatherDiaryEntity], imageData: [Data]?) {
         self.dataSource.data = data
+        self.dataSource.imageData = imageData
         self.tableView.reloadData()
     }
 }

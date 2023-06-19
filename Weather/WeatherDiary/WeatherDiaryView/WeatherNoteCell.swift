@@ -70,11 +70,16 @@ final class WeatherNoteCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func displayData(entity: WeatherDiaryEntity) {
+    func displayData(entity: WeatherDiaryEntity, imageData: Data?) {
         self.degreeLabel.text = entity.temperature
-        self.weatherImageView.image = UIImage(systemName: "questionmark.app")
         self.dateLabel.text = entity.date
         self.townLabel.text = entity.town
+        
+        if let imageData = imageData {
+            self.weatherImageView.image = UIImage(data: imageData)
+        } else {
+            self.weatherImageView.image = UIImage(systemName: "questionmark.app")
+        }
     }
 }
 

@@ -8,9 +8,9 @@
 import Foundation
 
 protocol INetworkService: AnyObject {
-    func getCurrentWeatherData(country: String, completionHandler: @escaping (Result<WeatherDTO, Error>) -> ())
+    func getCurrentWeatherData(city: String, completionHandler: @escaping (Result<WeatherDTO, Error>) -> ())
     func loadCurrentWeatherImage(urlString: String, completion: @escaping(Result<Data, Error>) -> ())
-    func loadForecastWeatherData<T:Codable>(completion: @escaping (Result<T, Error>) -> ())
+    func loadForecastWeatherData<T:Codable>(city: String, completion: @escaping (Result<T, Error>) -> ())
 }
 
 final class WeatherNetworkService: BaseNetworkService {
@@ -38,8 +38,8 @@ final class WeatherNetworkService: BaseNetworkService {
 
 extension WeatherNetworkService: INetworkService {
     
-    func getCurrentWeatherData(country: String, completionHandler: @escaping (Result<WeatherDTO, Error>) -> ()) {
-        guard let req  = Endpoints.weather(country: country).request else { completionHandler(.failure(NetworkError.somethingWentWrong))
+    func getCurrentWeatherData(city: String, completionHandler: @escaping (Result<WeatherDTO, Error>) -> ()) {
+        guard let req  = Endpoints.currentWeather(city: city).request else { completionHandler(.failure(NetworkError.somethingWentWrong))
             return
         }
         
@@ -69,9 +69,9 @@ extension WeatherNetworkService: INetworkService {
         }.resume()
     }
     
-    func loadForecastWeatherData<T:Codable>(completion: @escaping (Result<T, Error>) -> ()) {
-        guard let url = URL(string: Endpoints.forecastWeatherUrlString) else { assert(false) }
-        let request = URLRequest(url: url)
+    func loadForecastWeatherData<T:Codable>(city: String, completion: @escaping (Result<T, Error>) -> ()) {
+        guard let request = Endpoints.forecastWeather(city: city).request else { assert(false) }
+        //let request = URLRequest(url: url)
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
                 completion(.failure(error))

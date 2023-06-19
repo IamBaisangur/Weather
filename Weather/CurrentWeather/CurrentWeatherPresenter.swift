@@ -30,7 +30,7 @@ final class CurrentWeatherPresenter: ICurrentWeatherPresenter {
 private extension CurrentWeatherPresenter {
     func fetchDataFromNetworkService() {
         self.weatherNetworkService.getCurrentWeatherData(
-            country: "Moscow") { result in
+            city: "Moscow") { result in
                 switch result {
                 case let .success(model):
                     DispatchQueue.main.async {

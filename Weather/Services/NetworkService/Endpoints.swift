@@ -9,18 +9,18 @@ import Foundation
 
 enum Endpoints {
     static let currentWeatherUrlString = "https://api.weatherapi.com/v1/current.json?key=28a8f4418cb14579aad111556230305&q=London&aqi=yes"
-    static let forecastWeatherUrlString = "https://api.weatherapi.com/v1/forecast.json?key=28a8f4418cb14579aad111556230305&q=London&days=7&aqi=no&alerts=no"
+    static let forecastWeatherUrlString = "https://api.weatherapi.com/v1/forecast.json?key=28a8f4418cb14579aad111556230305&q=Moscow&days=7&aqi=no&alerts=no"
     
-    case weather(country: String)
-    case forecasts
+    case currentWeather(city: String)
+    case forecastWeather(city: String)
     
     var path: String {
         switch self {
-        case let .weather(counrty):
-            return "https://api.weatherapi.com/v1/current.json?key=28a8f4418cb14579aad111556230305&q=\(counrty)&aqi=yes"
+        case let .currentWeather(city):
+            return "https://api.weatherapi.com/v1/current.json?key=28a8f4418cb14579aad111556230305&q=\(city)&aqi=yes"
 
-        case .forecasts:
-            return "https://api.weatherapi.com/v1/forecast.json?key=28a8f4418cb14579aad111556230305&q=London&days=7&aqi=no&alerts=no"
+        case let .forecastWeather(city):
+            return "https://api.weatherapi.com/v1/forecast.json?key=28a8f4418cb14579aad111556230305&q=\(city)&days=7&aqi=no&alerts=no"
         }
     }
 
